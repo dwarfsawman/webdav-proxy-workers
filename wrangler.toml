@@ -1,0 +1,13 @@
+name = "webdav-proxy-37i4blu"
+main = "src/index.ts"
+compatibility_date = "2025-06-01"
+
+[vars]
+UPSTREAM = "https://ewebdav.pcloud.com"
+ALLOWED_ORIGINS = "https://example.com"
+
+# Secrets (set with `wrangler secret put <NAME>`):
+#   PROXY_USERNAME  - Basic auth username Readest will use
+#   PROXY_PASSWORD  - Basic auth password Readest will use
+#   PCLOUD_USERNAME - pCloud account email
+#   PCLOUD_PASSWORD - pCloud password

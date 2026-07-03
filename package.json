@@ -1,0 +1,16 @@
+{
+  "name": "webdav-proxy-workers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal CORS-enabled WebDAV reverse proxy for pCloud on Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250620.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.20.0"
+  }
+}
