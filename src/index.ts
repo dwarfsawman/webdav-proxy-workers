@@ -9,11 +9,19 @@ export interface Env {
 
 const DAV_METHODS = 'GET, HEAD, PUT, DELETE, OPTIONS, PROPFIND, PROPPATCH, MKCOL, COPY, MOVE, LOCK, UNLOCK';
 
-function allowedOrigin(req: Request, env: Env): string | null {
+export function allowedOrigin(req: Request, env: Env): string | null {
 	const origin = req.headers.get('Origin');
 	if (!origin) return null;
 	const allowed = env.ALLOWED_ORIGINS.split(',').map((o) => o.trim());
-	return allowed.includes(origin) ? origin : null;
+	for (const rule of allowed) {
+		if (rule === '*' || rule === origin) return origin;
+		if (rule.includes('*')) {
+			const escaped: string = rule.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*');
+			const reg: RegExp = new RegExp(`^${escaped}$`);
+			if (reg.test(origin)) return origin;
+		}
+	}
+	return null;
 }
 
 function corsHeaders(req: Request, env: Env): Headers {
