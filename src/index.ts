@@ -1,3 +1,5 @@
+import { handleOpds } from './opds';
+
 export interface Env {
 	UPSTREAM: string;
 	ALLOWED_ORIGINS: string;
@@ -156,6 +158,10 @@ export default {
 		}
 
 		try {
+			const url = new URL(req.url);
+			if (url.pathname === '/opds' || url.pathname.startsWith('/opds/')) {
+				return await handleOpds(req, env, corsHeaders(req, env));
+			}
 			return await handleProxy(req, env);
 		} catch (err) {
 			const headers = corsHeaders(req, env);
